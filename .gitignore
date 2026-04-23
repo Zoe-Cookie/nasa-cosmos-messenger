@@ -127,3 +127,4 @@ app.*.symbols
 
 # Flutter metadata
 .metadata
+.env
