@@ -1,19 +1,21 @@
-import 'package:nasa_cosmos_messenger/data/models/apod_model.dart';
+import 'package:nasa_cosmos_messenger/data/models/chat_message.dart';
 
-abstract class ApodState {}
+class ApodState {
+  final List<ChatMessage> messages;
+  final bool isTyping; //看 Nova 是不是正在打字，以控制提示輸出
 
-class ApodInitial extends ApodState {}
+  ApodState({
+    required this.messages,
+    this.isTyping = false,
+  });
 
-class ApodLoading extends ApodState {}
-
-class ApodSuccess extends ApodState {
-  final ApodModel apod;
-  
-  ApodSuccess(this.apod);
-}
-
-class ApodFailure extends ApodState {
-  final String errorMessage;
-  
-  ApodFailure(this.errorMessage);
+  ApodState copyWith({
+    List<ChatMessage>? messages,
+    bool? isTyping,
+  }) {
+    return ApodState(
+      messages: messages ?? this.messages,
+      isTyping: isTyping ?? this.isTyping,
+    );
+  }
 }
