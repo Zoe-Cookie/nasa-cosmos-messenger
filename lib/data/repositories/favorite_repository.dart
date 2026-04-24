@@ -51,7 +51,7 @@ class FavoriteRepository {
     await db.insert(
       'favorites',
       apod.toJson(),
-      conflictAlgorithm: ConflictAlgorithm.replace, // 避免同一天的天文圖儲存多次
+      conflictAlgorithm: ConflictAlgorithm.abort,
     );
   }
 

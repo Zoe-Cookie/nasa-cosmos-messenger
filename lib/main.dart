@@ -5,6 +5,7 @@ import 'package:nasa_cosmos_messenger/data/repositories/api_service.dart';
 import 'package:nasa_cosmos_messenger/data/repositories/favorite_repository.dart';
 import 'package:nasa_cosmos_messenger/logic/cubit/apod_cubit.dart';
 import 'package:nasa_cosmos_messenger/ui/screens/home_screen.dart';
+import 'package:nasa_cosmos_messenger/logic/cubit/favorite_cubit.dart';
 
 
 Future<void> main() async {
@@ -29,6 +30,9 @@ class NasaCosmosMessenger extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => ApodCubit(context.read<ApiService>()),
+          ),
+          BlocProvider(
+            create: (context) => FavoriteCubit(context.read<FavoriteRepository>()),
           ),
         ],
         child: MaterialApp(
