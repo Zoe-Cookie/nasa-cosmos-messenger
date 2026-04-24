@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import '../models/apod_model.dart';
+import 'package:nasa_cosmos_messenger/data/models/apod_model.dart';
 
 class ApiService {
   final Dio _dio = Dio();
