@@ -126,12 +126,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   }
 
   void _showDeleteConfirmDialog(BuildContext context, dynamic apod) {
+    final displayDate = apod.date.replaceAll('-', '/');
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text('取消收藏'),
-          content: Text('確定要將「${apod.title}」移出收藏庫嗎？'),
+          content: Text('確定要將「$displayDate 的天文圖」移出收藏庫嗎？'),
           actions: [
             TextButton(
               onPressed: () {

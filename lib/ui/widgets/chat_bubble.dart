@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nasa_cosmos_messenger/data/models/chat_message.dart';
+import 'package:nasa_cosmos_messenger/core/utils/share_manager.dart';
 
 class ChatBubble extends StatelessWidget {
   final ChatMessage message;
@@ -14,6 +15,7 @@ class ChatBubble extends StatelessWidget {
 
     return GestureDetector(
       onLongPress: onLongPress,
+      onTap: () => ShareManager.generateAndShareCard(context, message.apod!),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
