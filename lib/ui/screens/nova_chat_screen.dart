@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NovaChatScreen extends StatefulWidget {
   const NovaChatScreen({super.key});
@@ -9,6 +10,21 @@ class NovaChatScreen extends StatefulWidget {
 
 class _NovaChatScreenState extends State<NovaChatScreen> {
   final TextEditingController _textController = TextEditingController();
+
+  Future<void> _selectDate() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1995, 6, 16), 
+      lastDate: DateTime.now(),
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        _textController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -37,10 +53,14 @@ class _NovaChatScreenState extends State<NovaChatScreen> {
                 Expanded(
                   child: TextField(
                     controller: _textController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: '輸入日期 (YYYY-MM-DD)...',
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.calendar_month),
+                        onPressed: _selectDate,
+                      ),
                     ),
                   ),
                 ),
