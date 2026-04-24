@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:nasa_cosmos_messenger/ui/screens/nova_chat_screen.dart';
+import 'package:nasa_cosmos_messenger/ui/screens/favorite_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [const NovaChatScreen(), const Center(child: Text("開發中"))];
+  final List<Widget> _pages = [const NovaChatScreen(), const FavoriteScreen()];
 
   @override
   Widget build(BuildContext context) {

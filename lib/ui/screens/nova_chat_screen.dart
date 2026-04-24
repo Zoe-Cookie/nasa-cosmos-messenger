@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:nasa_cosmos_messenger/logic/cubit/apod_cubit.dart';
 import 'package:nasa_cosmos_messenger/logic/cubit/apod_state.dart';
 import 'package:nasa_cosmos_messenger/ui/widgets/chat_bubble.dart';
+import 'package:nasa_cosmos_messenger/data/repositories/favorite_repository.dart';
 
 class NovaChatScreen extends StatefulWidget {
   const NovaChatScreen({super.key});
@@ -76,9 +77,31 @@ class _NovaChatScreenState extends State<NovaChatScreen> {
                     final message = state.messages[index];
                     return ChatBubble(
                       message: message,
-                      onLongPress: () {
-                        // TODO: 之後要接上 Database
-                        debugPrint('長按了訊息！準備存入收藏庫');
+                      onLongPress: () async {
+                        if (message.apod != null) {
+                          try {
+                            await context.read<FavoriteRepository>().addFavorite(message.apod!);
+                            
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('已成功加入收藏！⭐️'),
+                                  duration: Duration(seconds: 2),
+                                  behavior: SnackBarBehavior.floating,
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('這張圖片已經在收藏庫囉！'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            }
+                          }
+                        }
                       },
                     );
                   },
