@@ -21,7 +21,7 @@ class _NovaChatScreenState extends State<NovaChatScreen> {
 
     if (pickedDate != null) {
       setState(() {
-        _textController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+        _textController.text += DateFormat('yyyy-MM-dd').format(pickedDate);
       });
     }
   }
