@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import '../models/apod_model.dart';
+import 'package:nasa_cosmos_messenger/data/models/apod_model.dart';
 
 class FavoriteRepository {
   static Database? _database;
