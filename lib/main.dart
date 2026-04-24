@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:nasa_cosmos_messenger/data/repositories/api_service.dart';
+import 'package:nasa_cosmos_messenger/data/repositories/favorite_repository.dart';
+import 'package:nasa_cosmos_messenger/logic/cubit/apod_cubit.dart';
+import 'package:nasa_cosmos_messenger/ui/screens/home_screen.dart';
 
 
 Future<void> main() async {
@@ -16,48 +20,30 @@ class NasaCosmosMessenger extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'NASA Cosmos Messenger',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.black)),
-      home: NavigationApp(),
-    );
-  }
-}
-
-class NavigationApp extends StatefulWidget {
-  const NavigationApp({super.key});
-
-  @override
-  State<NavigationApp> createState() => _NavigationAppState();
-}
-
-class _NavigationAppState extends State<NavigationApp> {
-  int _currentIndex = 0;
-
-  final List<String> _pageTitles = const ['Nova', '收藏'];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(_pageTitles[_currentIndex])),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Ionicons.planet_outline),
-            activeIcon: Icon(Ionicons.planet),
-            label: 'Nova',
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (context) => ApiService()),
+        RepositoryProvider(create: (context) => FavoriteRepository()),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => ApodCubit(context.read<ApiService>()),
           ),
-          BottomNavigationBarItem(icon: Icon(Ionicons.star_outline), activeIcon: Icon(Ionicons.star), label: '收藏'),
         ],
+        child: MaterialApp(
+          title: 'NASA Cosmos Messenger',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.deepPurple,
+              brightness: Brightness.dark,
+            ),
+            useMaterial3: true,
+          ),
+          home: const HomeScreen(), // 指向我們 App 的入口畫面
+        ),
       ),
-      body: <Widget>[Text(""), Text("")][_currentIndex],
     );
   }
 }
