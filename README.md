@@ -5,6 +5,17 @@
 
 ---
 
+## Quick Demo
+
+|功能|螢幕錄影|
+|-|-|
+|文字日期辨識|<video src="https://github.com/user-attachments/assets/d5f70a1f-caea-45fb-8037-2443514c2aa2" />|
+|日期選擇|<video src="https://github.com/user-attachments/assets/b7dac648-9236-461a-a83f-71e8597fa350" />|
+|收藏新增與刪除|<video src="https://github.com/user-attachments/assets/a247081a-5e6d-4fc5-a87f-a111b213848e" />|
+|分享星空卡|<video src="https://github.com/user-attachments/assets/59215c71-5e59-4867-bf90-f3a27f31e271" />|
+
+---
+
 ## 架構說明
 
 採用**分層架構**，依職責劃分四個主要目錄：
